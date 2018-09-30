@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\XRay;
+use App\Xray;
 use Illuminate\Http\Request;
 
-class XRayController extends Controller
+class XrayController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,9 @@ class XRayController extends Controller
      */
     public function index()
     {
-        //
+        $patient=Xray::with('patient','treatment')->orderBy('id','asc')->paginate(10);
+        return view('xraypatient_list',compact('patient'));
+//        return $patient;
     }
 
     /**
@@ -24,7 +26,7 @@ class XRayController extends Controller
      */
     public function create()
     {
-        //
+        return view('Xrey_dep');
     }
 
     /**
@@ -35,27 +37,34 @@ class XRayController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rey=new Xray();
+        $rey->id=$request->id;
+        $rey->description=$request->description;
+        $rey->FK_id_treatment=$request->FK_id_treatment;
+        $rey->FK_id_patient=$request->FK_id_patient;
+        $rey->save();
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\XRay  $xRay
+     * @param  \App\Xray  $xray
      * @return \Illuminate\Http\Response
      */
-    public function show(XRay $xRay)
+    public function show(Xray $xray)
     {
-        //
+        $singlePatient=Xray::find($xray);
+        return view('xray_show',compact('singlePatient'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\XRay  $xRay
+     * @param  \App\Xray  $xray
      * @return \Illuminate\Http\Response
      */
-    public function edit(XRay $xRay)
+    public function edit(Xray $xray)
     {
         //
     }
@@ -64,10 +73,10 @@ class XRayController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\XRay  $xRay
+     * @param  \App\Xray  $xray
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, XRay $xRay)
+    public function update(Request $request, Xray $xray)
     {
         //
     }
@@ -75,10 +84,10 @@ class XRayController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\XRay  $xRay
+     * @param  \App\Xray  $xray
      * @return \Illuminate\Http\Response
      */
-    public function destroy(XRay $xRay)
+    public function destroy(Xray $xray)
     {
         //
     }

@@ -64,6 +64,7 @@ class DoctorController extends Controller
     {
         $doctor=Doctor::find($doctor);
         return view('doctor_report')->with('doctor',$doctor);
+//        return $doctor;
     }
 
     /**

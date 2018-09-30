@@ -192,4 +192,13 @@ Route::get('/iframe', function () {
 // Doctor Registration
 Route::resource('doctors','DoctorController');
 
+//Doctor Operation
 Route::resource('operation','OperationController');
+
+//Xray Controller
+Route::resource('xray','XrayController');
+
+Route::get('/four', function () {
+    return view('/xray_show');
+});
+

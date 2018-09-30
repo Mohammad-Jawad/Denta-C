@@ -11,5 +11,8 @@ class Treatment extends Model
     public function patient(){
         return $this->belongsTo(Patient::class,'FK_id_patient', 'id');
     }
+    public function xray(){
+        return $this->hasMany(Xray::class);
+    }
 
 }
