@@ -103,7 +103,10 @@
                                             {{$spat->patient->name}}
                                         </h2>
                                         <h2 class="no-margins font-b"><label><b>Patient ID:&nbsp;</b></label>
-                                           <input type="text" name="FK_id_patient" value="{{$spat->FK_id_patient}}" class="form-control" readonly>
+                                           <input type="text" name="FK_id_patient" value="{{$spat->patient->id}}" class="form-control">
+                                           <input type="text" name="FK_id_treatment" value="{{$spat->treatment->id}}" class="form-control">
+                                           <input type="text" name="status_pay" value="{{$spat->treatment->status_pay}}" class="form-control">
+                                           <input type="text" name="FK_id_doctor" value="{{$spat->doctor->id}}" class="form-control" readonly>
                                         </h2>
                                         {{--<label><b>Patient ID: &nbsp;</b></label> <h4>{{$spat->FK_id_patient}}</h4>--}}
                                     </div>
@@ -123,7 +126,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <span class="font-m">Doctor:<b>&nbsp;Dr.Ahmadi</b>&nbsp;<i
+                                        <span class="font-m">Doctor:<b>&nbsp;{{$spat->doctor->first_name}}</b>&nbsp;<i
                                                     class="fa fa-user-md"></i></span>
                                     </td>
                                     <td>
@@ -136,7 +139,7 @@
                                                     class="fa fa-calendar"></i></span>
                                     </td>
                                     <td>
-                                        <span class="font-m text-info">Cash X-Ray:<b>&nbsp;Paid</b>&nbsp;<i
+                                        <span class="font-m text-info">Cash X-Ray:<b>&nbsp;{{$spat->treatment->status_pay}}</b>&nbsp;<i
                                                     class="fa fa-money"></i></span>
                                     </td>
                                 </tr>
@@ -152,7 +155,7 @@
                         <table class="table table-condensed table-bordered text-center">
                             <tr>
                                 <td><strong style="margin-top:30px;">Tooth Image :</strong></td>
-                                <td><img src="img/teeths/4.png"/></td>
+                                <td><img src="{{asset('img/teeths/4.png')}}"/></td>
                             </tr>
                             @foreach($singlePatient as $spat)
                             <tr>
@@ -171,7 +174,7 @@
                         </table>
                     </div>
                     <div class="col-md-7">
-                        <img src="img/all_tooth.jpg" class="img-responsive" id="img_all_tooth"/>
+                        <img src="{{asset('img/all_tooth.jpg')}}" class="img-responsive" id="img_all_tooth"/>
                     </div>
                 </div>
                 <div class="row">

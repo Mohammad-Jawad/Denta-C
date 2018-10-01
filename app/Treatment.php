@@ -8,11 +8,11 @@ class Treatment extends Model
 {
     protected $table = 'treatments';
 
-    public function patient(){
+        public function patient(){
         return $this->belongsTo(Patient::class,'FK_id_patient', 'id');
     }
     public function xray(){
-        return $this->hasMany(Xray::class);
+        return $this->hasOne(Xray::class);
     }
 
 }

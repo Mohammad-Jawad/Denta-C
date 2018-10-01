@@ -103,22 +103,28 @@
                                 <thead>
                                     <tr>
                                         <th>X-Ray ID</th>
-                                        <th>Patient ID</th>
                                         <th>Patient Name</th>
-                                        <th>Date of Registration</th>
+                                        <th>Patient LastName</th>
+                                        <th>Patient's Doctor Name</th>
+                                        <th>Status of x-ray</th>
+                                        <th>Status of Payment</th>
                                         <th>Details</th>
                                     </tr>
                                 </thead>
                                 @if(count($patient)>0)
                                     @foreach($patient as $pat)
                                 <tbody>
+                                @if($pat->have_xray==false)
                                 <tr>
                                     <td>{{$pat->id}}</td>
-                                    <td>{{$pat->FK_id_patient}}</td>
-                                    <td>{{$pat->patient->name}}</td>
-                                    <td>Today {{$pat->created_at}}</td>
-                                    <td><a class="btn btn-xs btn-info" href="/xray/{{$pat->id}}">Details &nbsp;<i class="fa fa-file-o"></i></a></td></td>
+                                    <td>{{$pat->name}}</td>
+                                    <td>{{$pat->lastname}}</td>
+                                    <td>{{$pat->first_name}}</td>
+                                    <td>{{$pat->have_xray}}</td>
+                                    <td>{{$pat->status_pay}}</td>
+                                    <td><a class="btn btn-xs btn-info" href="/xray/{{$pat->id}}/edit">Details &nbsp;<i class="fa fa-file-o"></i></a></td></td>
                                 </tr>
+                                  @endif
                                 </tbody>
                                  @endforeach
                                   @else

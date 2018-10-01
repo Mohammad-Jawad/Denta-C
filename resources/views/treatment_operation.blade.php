@@ -306,10 +306,20 @@
                                     </div>
 
                                 </div>
-                                <div class="col-lg-4">
-
+                                <div class="col-sm-4">
                                     <div class="i-checks">   <label for="">Do You Need X-Rey ?</label>&nbsp;&nbsp;<input type="checkbox"  value="option2" name="a"></div>
-
+                                </div>
+                                <div class="col-sm-10 text-left">
+                                    <form action="xray" method="post">
+                                        <button class="btn btn-primary" type="submit"> Send To X-Ray&nbsp;<i class="fa fa-send"></i></button>
+                                        @foreach($xrey as $x)
+                                            <input type="text" name="description" value="{{$x->description}}" style="visibility: hidden;">
+                                            <input type="text" name="status_pay" value="{{$x->status_pay}}"style="visibility: hidden;">
+                                            <input type="text" name="Tid" value="{{$x->id}}"style="visibility: hidden;">
+                                            <input type="text" name="Pid" value="{{$x->patient->id}}"style="visibility: hidden;">
+                                            <input type="text" name="Did" value="{{$x->patient->FK_id_Doctor}}"style="visibility: hidden;">
+                                        @endforeach
+                                    </form>
                                 </div>
                             </div>
                             <div class="row" style="margin-top:30px;">
@@ -355,10 +365,8 @@
 
                                       <div class="row">
                                           <div class="col-md-5">
-                                              <button class="btn btn-primary"> Send To Finance&nbsp;<i class="fa fa-save"></i>
-                                              </button>
-                                              <button class="btn btn-primary"> Send To X-Ray&nbsp;<i class="fa fa-send"></i>
-                                              </button>
+                                              <button class="btn btn-primary"> Send To Finance&nbsp;<i class="fa fa-save"></i></button>
+
                                           </div>
                                       </div>
 

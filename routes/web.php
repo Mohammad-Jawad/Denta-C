@@ -187,7 +187,7 @@ Route::get('/iframe', function () {
     });
 
 
-    Route::get('patient/{id}/delete', 'PatientController@destroy');
+Route::get('patient/{id}/delete', 'PatientController@destroy');
 
 // Doctor Registration
 Route::resource('doctors','DoctorController');
@@ -199,6 +199,10 @@ Route::resource('operation','OperationController');
 Route::resource('xray','XrayController');
 
 Route::get('/four', function () {
-    return view('/xray_show');
+    return view('treatment_operation');
 });
+//Treatment controller
+Route::resource('/treat','TreatmentController');
+
+
 

@@ -24,7 +24,7 @@ class CreateTreatmentsTable extends Migration
             $table->string('status_visits');
             $table->boolean('status_pay');
             $table->longText('description');
-            $table->boolean('have-xray');
+            $table->boolean('have_xray');
             $table->unsignedInteger('FK_id_patient')->nullable();
             $table->timestamps();
 

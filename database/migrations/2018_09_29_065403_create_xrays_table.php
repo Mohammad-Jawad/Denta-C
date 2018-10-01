@@ -19,6 +19,7 @@ class CreateXraysTable extends Migration
             $table->boolean('status_pay')->nullable();
             $table->unsignedInteger('FK_id_treatment')->nullable();
             $table->unsignedInteger('FK_id_patient')->nullable();
+            $table->unsignedInteger('FK_id_doctor')->nullable();
             $table->timestamps();
 
             $table->foreign('FK_id_treatment')
@@ -28,6 +29,10 @@ class CreateXraysTable extends Migration
 
             $table->foreign('FK_id_patient')
                 ->references('id')->on('patients')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->foreign('FK_id_doctor')
+                ->references('id')->on('doctors')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });

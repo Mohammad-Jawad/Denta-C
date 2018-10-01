@@ -13,4 +13,8 @@ class Xray extends Model
     public function patient(){
         return $this->belongsTo(Patient::class , 'FK_id_patient', 'id');
     }
+
+    public function doctor(){
+        return $this->belongsTo(Doctor::class,'FK_id_doctor','id');
+    }
 }

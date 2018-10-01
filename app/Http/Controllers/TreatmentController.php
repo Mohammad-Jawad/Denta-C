@@ -14,7 +14,9 @@ class TreatmentController extends Controller
      */
     public function index()
     {
-
+            $xrey=Treatment::with('patient')->get();
+            return view('treatment_operation')->with('xrey',$xrey);
+//         return $xrey;
     }
 
     /**

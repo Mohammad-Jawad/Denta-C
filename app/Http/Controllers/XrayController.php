@@ -14,7 +14,7 @@ class XrayController extends Controller
      */
     public function index()
     {
-        $patient=Xray::with('patient','treatment')->orderBy('id','asc')->paginate(10);
+        $patient=Xray::orderBy('id','asc')->paginate(10);
         return view('xraypatient_list',compact('patient'));
 //        return $patient;
     }
@@ -26,7 +26,7 @@ class XrayController extends Controller
      */
     public function create()
     {
-        return view('Xrey_dep');
+        return view('treatment_operation');
     }
 
     /**
@@ -38,11 +38,13 @@ class XrayController extends Controller
     public function store(Request $request)
     {
         $rey=new Xray();
-        $rey->id=$request->id;
         $rey->description=$request->description;
-        $rey->FK_id_treatment=$request->FK_id_treatment;
-        $rey->FK_id_patient=$request->FK_id_patient;
+        $rey->status_pay=$request->status_pay;
+        $rey->FK_id_treatment=$request->Tid;
+        $rey->FK_id_patient=$request->Pid;
+        $rey->FK_id_doctor=$request->Did;
         $rey->save();
+        return redirect('/xray');
 
     }
 
@@ -66,7 +68,8 @@ class XrayController extends Controller
      */
     public function edit(Xray $xray)
     {
-        //
+        $singlePatient=Xray::find($xray);
+        return view('xray_show',compact('singlePatient'));
     }
 
     /**
@@ -78,7 +81,14 @@ class XrayController extends Controller
      */
     public function update(Request $request, Xray $xray)
     {
-        //
+        $rey=Xray::find($xray);
+        $rey->description=$request->description;
+        $rey->status_pay=$request->status_pay;
+        $rey->FK_id_treatment=$request->Tid;
+        $rey->FK_id_patient=$request->Pid;
+        $rey->FK_id_doctor=$request->Did;
+        $rey->save();
+        return redirect('/xray');
     }
 
     /**
