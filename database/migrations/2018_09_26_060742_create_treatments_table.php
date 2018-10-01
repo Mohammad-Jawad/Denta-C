@@ -17,21 +17,32 @@ class CreateTreatmentsTable extends Migration
 
             $table->increments('id');
             $table->integer('teeth_number');
-            $table->string('dental_defect');
             $table->string('treatment');
+            $table->string('dentaldefect');
             $table->integer('visits');
-            $table->date('next_appointment');
+            $table->date('next_appointment')->nullable();
+            $table->string('meridiem')->nullable();
             $table->string('status_visits');
             $table->boolean('status_pay');
+<<<<<<< HEAD
             $table->longText('description');
             $table->boolean('have_xray');
             $table->unsignedInteger('FK_id_patient')->nullable();
+=======
+            $table->longText('description')->nullable();
+            $table->boolean('have_xray');
+            $table->integer('estimated_fee');
+            $table->integer('discount');
+            $table->unsignedInteger('patient_id')->nullable();
+
+>>>>>>> 04a8d3c39c12e2c5bb6848b695fd79ba1b0b8f66
             $table->timestamps();
 
-            $table->foreign('FK_id_patient')
+            $table->foreign('patient_id')
                 ->references('id')->on('patients')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+
         });
     }
 

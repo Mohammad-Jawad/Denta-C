@@ -56,7 +56,6 @@ Route::get('/medicine', function () {
 });
 Route::resource('/patient', 'PatientController');
 
-Route::resource('/doctor_store', 'DoctorDemoController');
 
 // next appointment page
 Route::get('/next_appointment', function () {
@@ -113,7 +112,7 @@ Route::get('/iframe', function () {
 
 // report patient
     Route::get('/patient_report', function () {
-        return view('patient_report');
+        return view('patient.patient_report');
     });
 
 
@@ -161,7 +160,7 @@ Route::get('/iframe', function () {
     });
 // patient report
     Route::get('print_preport', function () {
-        return view('print_preport');
+        return view('patient.print_preport');
     });
 
     Route::get('/dash_reception', function () {
@@ -190,8 +189,9 @@ Route::get('/iframe', function () {
 Route::get('patient/{id}/delete', 'PatientController@destroy');
 
 // Doctor Registration
-Route::resource('doctors','DoctorController');
+Route::resource('/doctors','DoctorController');
 
+<<<<<<< HEAD
 //Doctor Operation
 Route::resource('operation','OperationController');
 
@@ -206,3 +206,8 @@ Route::resource('/treat','TreatmentController');
 
 
 
+=======
+Route::resource('/operation','TreatmentController');
+
+Route::get('/operation/create/{id}','TreatmentController@create');
+>>>>>>> 04a8d3c39c12e2c5bb6848b695fd79ba1b0b8f66
