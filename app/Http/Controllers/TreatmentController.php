@@ -18,14 +18,10 @@ class TreatmentController extends Controller
      */
     public function index()
     {
-<<<<<<< HEAD
-            $xrey=Treatment::with('patient')->get();
-            return view('treatment_operation')->with('xrey',$xrey);
-//         return $xrey;
-=======
+
         $operation = Patient::orderBy('id', 'asc')->paginate(10);
         return view('doctor_operations')->with('operation', $operation);
->>>>>>> 04a8d3c39c12e2c5bb6848b695fd79ba1b0b8f66
+
     }
 
     /**
@@ -61,6 +57,7 @@ class TreatmentController extends Controller
 
         return view('treatment_operation', compact('patient_in_treatment',
             'patient_id', 'checkValue', 'treatementList', 'dentalDefectList', 'treatments'));
+
     }
 
 

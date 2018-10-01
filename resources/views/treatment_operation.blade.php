@@ -149,7 +149,7 @@
             <div class="tabs-container">
                 <ul class="nav nav-tabs" id="demoTabs">
                     <li class="active"><a data-toggle="tab" href="#tab-1">Past History</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-2">Present History</a></li>
+                    <li class=""><a data-toggle="tab" id="test" href="#tab-2">Present History</a></li>
                 </ul>
 
                 <div class="tab-content">
@@ -205,12 +205,31 @@
                         <div class="panel-body">
                             <br>
                             {{-- Header of title --}}
-                            <div class="row  bg-info"
-                                 style=" padding-left:20px; border-radius: 5px;margin-left:10px;margin-right: 10px;">
-                                <h3 style="font-weight: bold">Present History</h3>
+                            <div class="row  bg-info" style=" padding-left:20px; border-radius: 5px;margin-left:0px;margin-right: 10px;">
+                                <h3 style="font-weight: bold;">Present History</h3>
                             </div>
-
                             <br>
+                            <form action="/xray" method="post">
+                                {{csrf_field()}}
+                                <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="i-checks"><label for="">Is X-Ray Needed?</label>&nbsp;&nbsp;<input type="checkbox" id="check" value="1" name="xray_status "></div>
+                                </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label style="text-align: left">Tooth_Number:</label>
+                                    <input type="number" class="form-control" id="teeth" required name="tooth_number" onblur="copyvalue()" placeholder="Enter Tooth Number" style="width: 45%">
+                                </div>
+                                <button class="btn btn-primary" id="but" type="submit" disabled> Send To X-Ray&nbsp;<i class="fa fa-send"></i></button>
+                                </div>
+                                </div>
+                                <input type="text" name="doctor_name" value="{{ $patient_in_treatment->doctor->first_name }}" style="visibility: hidden;">
+                                <input type="text" name="patient_name" value="{{ $patient_in_treatment->name }}" style="visibility: hidden;">
+                                <input type="text" name="patient_id" value="{{ $patient_in_treatment->id_patient }}"style="visibility: hidden;">
+                            </form>
                             <form action="/operation" method="POST">
 
                                 <input hidden type="hidden"/>
@@ -220,8 +239,8 @@
                                 <div class="row" style="margin-top:30px;">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Tooth Number :</label>
-                                            <input type="number" class="form-control" required name="teeth_number"/>
+                                            <label></label>
+                                            <input type="number" class="form-control" id="copyteeth" required name="teeth_number"style="visibility: hidden">
                                         </div>
                                         <div class="form-group">
                                             <label>Select Dental Defect :</label>
@@ -274,21 +293,7 @@
                                         <img src="{{ asset('img/all_tooth.jpg') }}" width="100%"/>
                                     </div>
                                 </div>
-<<<<<<< HEAD
-                                <div class="col-sm-4">
-                                    <div class="i-checks">   <label for="">Do You Need X-Rey ?</label>&nbsp;&nbsp;<input type="checkbox"  value="option2" name="a"></div>
-                                </div>
                                 <div class="col-sm-10 text-left">
-                                    <form action="xray" method="post">
-                                        <button class="btn btn-primary" type="submit"> Send To X-Ray&nbsp;<i class="fa fa-send"></i></button>
-                                        @foreach($xrey as $x)
-                                            <input type="text" name="description" value="{{$x->description}}" style="visibility: hidden;">
-                                            <input type="text" name="status_pay" value="{{$x->status_pay}}"style="visibility: hidden;">
-                                            <input type="text" name="Tid" value="{{$x->id}}"style="visibility: hidden;">
-                                            <input type="text" name="Pid" value="{{$x->patient->id}}"style="visibility: hidden;">
-                                            <input type="text" name="Did" value="{{$x->patient->FK_id_Doctor}}"style="visibility: hidden;">
-                                        @endforeach
-                                    </form>
                                 </div>
                             </div>
                             <div class="row" style="margin-top:30px;">
@@ -342,17 +347,8 @@
                                   </div>
                               </div>
                           </div>
-=======
+                        </form>
 
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <button type="submit" class="btn btn-primary"> Send To Finance&nbsp;<i
-                                                    class="fa fa-save"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
->>>>>>> 04a8d3c39c12e2c5bb6848b695fd79ba1b0b8f66
 
                         </div>
                     </div>
@@ -366,6 +362,7 @@
 @endsection
 
 @section('script')
+
     <script src="{{ asset('js/tooths.js') }}" type="javascript"></script>
     <script>
         function getFeeTreatment(e) {
@@ -375,4 +372,27 @@
 //            alert('const = '+e.target.id);
         }
     </script>
+
+    <script type="text/javascript">
+        function copyvalue() {
+        var teeth=document.getElementById('teeth').value;
+        document.getElementById('copyteeth').value=teeth;
+        }
+        </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+       $(document).ready(function () {
+           $('#check').change(function () {
+              var ch=this.checked;
+              if(!ch){
+                  $('#but').prop('disabled',true);
+              }else{
+                  $('#but').prop('disabled',false);
+              }
+           });
+       });
+    </script>
+
+
+
 @endsection

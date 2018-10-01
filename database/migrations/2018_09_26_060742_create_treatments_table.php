@@ -24,18 +24,11 @@ class CreateTreatmentsTable extends Migration
             $table->string('meridiem')->nullable();
             $table->string('status_visits');
             $table->boolean('status_pay');
-<<<<<<< HEAD
-            $table->longText('description');
-            $table->boolean('have_xray');
-            $table->unsignedInteger('FK_id_patient')->nullable();
-=======
             $table->longText('description')->nullable();
             $table->boolean('have_xray');
             $table->integer('estimated_fee');
             $table->integer('discount');
             $table->unsignedInteger('patient_id')->nullable();
-
->>>>>>> 04a8d3c39c12e2c5bb6848b695fd79ba1b0b8f66
             $table->timestamps();
 
             $table->foreign('patient_id')

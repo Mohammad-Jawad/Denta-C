@@ -67,11 +67,11 @@
 
 @section('content')
 
-        {{-- table xray One patient --}}
+        {{-- table of patient's x-ray --}}
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Your X-Ray Patient List</h5>
+                    <h5>Your Patient's X-Ray List</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -91,47 +91,114 @@
                     </div>
                 </div>
                 <div class="ibox-content">
-                    <div class="row">
-                        {{-- table of content of X-Ray of petient --}}
-                        <div class="col-md-12">
+                    <div class="row" style="margin-right: 0px;margin-left:0PX;">
+                        <div class="col-lg-12">
+                            <div class="tabs-container">
+                                <ul class="nav nav-tabs" id="demoTabs">
+                                    <li class="active"><a data-toggle="tab" href="#tab-1">New Patient</a></li>
+                                    <li class=""><a data-toggle="tab" href="#tab-2">Already Done</a></li>
+                                </ul>
 
-                            <br/>
-                            <div class="table-responsive">
-                                <label style="margin-left: 10px;font-size: 20px"><strong><b>Number of patient:&nbsp; {!!count($patient)!!} Patients </b></strong></label>
-                                <hr>
-                                <table class="table table-hover table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>X-Ray ID</th>
-                                        <th>Patient Name</th>
-                                        <th>Patient LastName</th>
-                                        <th>Patient's Doctor Name</th>
-                                        <th>Status of x-ray</th>
-                                        <th>Status of Payment</th>
-                                        <th>Details</th>
-                                    </tr>
-                                </thead>
-                                @if(count($patient)>0)
-                                    @foreach($patient as $pat)
-                                <tbody>
-                                @if($pat->have_xray==false)
-                                <tr>
-                                    <td>{{$pat->id}}</td>
-                                    <td>{{$pat->name}}</td>
-                                    <td>{{$pat->lastname}}</td>
-                                    <td>{{$pat->first_name}}</td>
-                                    <td>{{$pat->have_xray}}</td>
-                                    <td>{{$pat->status_pay}}</td>
-                                    <td><a class="btn btn-xs btn-info" href="/xray/{{$pat->id}}/edit">Details &nbsp;<i class="fa fa-file-o"></i></a></td></td>
-                                </tr>
-                                  @endif
-                                </tbody>
-                                 @endforeach
-                                  @else
-                                    <h1 class="text-center" style="color:red;font-size: 20px;">No patient registered for x-ray</h1>
-                                  @endif
-                            </table>
-                                {{$patient->links()}}
+                                <div class="tab-content">
+
+                                    {{-- panel tab 1 past history --}}
+                                    <div id="tab-1" class="tab-pane active">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                {{-- table of content of X-Ray of petient --}}
+                                                <div class="col-md-12">
+
+                                                    <br/>
+                                                    <div class="table-responsive">
+                                                        <label style="margin-left: 10px;font-size: 20px"><strong><b>Number of patient:&nbsp; {!!count($patient)!!} Patients </b></strong></label>
+                                                        <hr>
+                                                        <table class="table table-hover table-bordered table-striped">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>X-Ray ID</th>
+                                                                <th>Tooth Number</th>
+                                                                <th>Patient ID</th>
+                                                                <th>Patient Name</th>
+                                                                <th>Doctor Name</th>
+                                                                <th>Status of X-Ray</th>
+                                                                <th>Details</th>
+                                                            </tr>
+                                                            </thead>
+                                                            @if(count($patient)>0)
+                                                                @foreach($patient as $pat)
+                                                                    <tbody>
+                                                                    @if($pat->xray_status==true)
+                                                                        <tr>
+                                                                            <td>{{$pat->id}}</td>
+                                                                            <td>{{$pat->tooth_number}}</td>
+                                                                            <td>{{$pat->patient_id}}</td>
+                                                                            <td>{{$pat->patient_name}}</td>
+                                                                            <td>{{$pat->doctor_name}}</td>
+                                                                            <td>{{$pat->xray_status}}</td>
+                                                                            <td><a class="btn btn-xs btn-info" href="/xray/{{$pat->id}}">Details &nbsp;<i class="fa fa-file-o"></i></a></td></td>
+                                                                        </tr>
+                                                                    @endif
+                                                                    </tbody>
+                                                                @endforeach
+                                                            @else
+                                                                <h1 class="text-center" style="color:red;font-size: 20px;">No patient registered for x-ray</h1>
+                                                            @endif
+                                                        </table>
+                                                        {{$patient->links()}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {{-- panel tab 2 new history --}}
+                                    <div id="tab-2" class="tab-pane">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                {{-- table of content of X-Ray of petient --}}
+                                                <div class="col-md-12">
+
+                                                    <br/>
+                                                    <div class="table-responsive">
+                                                        <label style="margin-left: 10px;font-size: 20px"><strong><b>Number of patient:&nbsp; {!!count($patient)!!} Patients </b></strong></label>
+                                                        <hr>
+                                                        <table class="table table-hover table-bordered table-striped">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>X-Ray ID</th>
+                                                                <th>Tooth Number</th>
+                                                                <th>Patient ID</th>
+                                                                <th>Patient Name</th>
+                                                                <th>Doctor Name</th>
+                                                                <th>Status of X-Ray</th>
+                                                            </tr>
+                                                            </thead>
+                                                            @if(count($patient)>0)
+                                                                @foreach($patient as $pat)
+                                                                    <tbody>
+                                                                    @if($pat->xray_status==false)
+                                                                        <tr>
+                                                                            <td>{{$pat->id}}</td>
+                                                                            <td>{{$pat->tooth_number}}</td>
+                                                                            <td>{{$pat->patient_id}}</td>
+                                                                            <td>{{$pat->patient_name}}</td>
+                                                                            <td>{{$pat->doctor_name}}</td>
+                                                                            <td>{{$pat->xray_status}}</td>
+                                                                        </tr>
+                                                                    @endif
+                                                                    </tbody>
+                                                                @endforeach
+                                                            @else
+                                                                <h1 class="text-center" style="color:red;font-size: 20px;">No patient registered for x-ray</h1>
+                                                            @endif
+                                                        </table>
+                                                        {{$patient->links()}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

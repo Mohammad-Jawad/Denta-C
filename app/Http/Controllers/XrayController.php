@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Patient;
 use App\Xray;
 use Illuminate\Http\Request;
 
@@ -38,13 +39,14 @@ class XrayController extends Controller
     public function store(Request $request)
     {
         $rey=new Xray();
-        $rey->description=$request->description;
-        $rey->status_pay=$request->status_pay;
-        $rey->FK_id_treatment=$request->Tid;
-        $rey->FK_id_patient=$request->Pid;
-        $rey->FK_id_doctor=$request->Did;
+        $rey->tooth_number=$request->tooth_number;
+        $rey->patient_id=$request->patient_id;
+        $rey->patient_name=$request->patient_name;
+        $rey->doctor_name=$request->doctor_name;
+        $rey->xray_status=$request->xray_status;
         $rey->save();
         return redirect('/xray');
+//        return $request;
 
     }
 
@@ -56,8 +58,7 @@ class XrayController extends Controller
      */
     public function show(Xray $xray)
     {
-        $singlePatient=Xray::find($xray);
-        return view('xray_show',compact('singlePatient'));
+        //
     }
 
     /**
@@ -68,8 +69,9 @@ class XrayController extends Controller
      */
     public function edit(Xray $xray)
     {
-        $singlePatient=Xray::find($xray);
-        return view('xray_show',compact('singlePatient'));
+        $patients=Patient::find($xray);
+        $spats=Xray::find($xray);
+        return view('xray_show',compact('spats','patients'));
     }
 
     /**
@@ -82,13 +84,14 @@ class XrayController extends Controller
     public function update(Request $request, Xray $xray)
     {
         $rey=Xray::find($xray);
-        $rey->description=$request->description;
-        $rey->status_pay=$request->status_pay;
-        $rey->FK_id_treatment=$request->Tid;
-        $rey->FK_id_patient=$request->Pid;
-        $rey->FK_id_doctor=$request->Did;
+        $rey->tooth_number=$request->tooth_number;
+        $rey->patient_id=$request->patient_id;
+        $rey->patient_name=$request->patient_name;
+        $rey->doctor_name=$request->doctor_name;
+        $rey->xray_status=$request->xray_status;
         $rey->save();
         return redirect('/xray');
+//        return $rey;
     }
 
     /**

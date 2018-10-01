@@ -191,23 +191,17 @@ Route::get('patient/{id}/delete', 'PatientController@destroy');
 // Doctor Registration
 Route::resource('/doctors','DoctorController');
 
-<<<<<<< HEAD
+
 //Doctor Operation
 Route::resource('operation','OperationController');
 
 //Xray Controller
 Route::resource('xray','XrayController');
 
-Route::get('/four', function () {
-    return view('treatment_operation');
-});
 //Treatment controller
 Route::resource('/treat','TreatmentController');
 
-
-
-=======
 Route::resource('/operation','TreatmentController');
 
 Route::get('/operation/create/{id}','TreatmentController@create');
->>>>>>> 04a8d3c39c12e2c5bb6848b695fd79ba1b0b8f66
+
