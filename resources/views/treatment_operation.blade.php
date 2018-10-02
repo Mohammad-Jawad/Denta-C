@@ -213,17 +213,33 @@
                                 {{csrf_field()}}
                                 <div class="row">
                                 <div class="col-sm-4">
-                                    <div class="i-checks"><label for="">Is X-Ray Needed?</label>&nbsp;&nbsp;<input type="checkbox" id="check" value="1" name="xray_status "></div>
+                                    <div class="i-checks"><label for=""><h4 style="color:green">Is X-Ray Needed?</h4></label>&nbsp;&nbsp;
+                                        <div class="input-group">
+                                             <div class="i-checks"><input type="radio"  value="not" name="xray_status" id="check">yes</div></div>
+                                             <div class="i-checks"><input type="radio" id="id"  name="xray_status" checked="checked">No</div></div>
+                                        </div>
                                 </div>
-                                </div>
+
                                 <br>
                                 <div class="row">
                                 <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label style="text-align: left">Tooth_Number:</label>
-                                    <input type="number" class="form-control" id="teeth" required name="tooth_number" onblur="copyvalue()" placeholder="Enter Tooth Number" style="width: 45%">
-                                </div>
-                                <button class="btn btn-primary" id="but" type="submit" disabled> Send To X-Ray&nbsp;<i class="fa fa-send"></i></button>
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="row">
+                                                    <div class="col-sm-2 text-right">
+                                                        <h3 style="letter-spacing: 2px; line-height: 30px;">Tooth_Number:</h3>
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <input type="number" class="form-control" id="teeth" required name="tooth_number" onblur="copyvalue()" placeholder="Enter Tooth Number" style="width: 100%;height:36px;">
+                                                    </div>
+                                                    <div class="col-sm-2 text-left">
+                                                        <button class="btn btn-primary" id="but" type="submit" disabled> Send To X-Ray&nbsp;<i class="fa fa-send"></i></button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </div>
                                 </div>
                                 <input type="text" name="doctor_name" value="{{ $patient_in_treatment->doctor->first_name }}" style="visibility: hidden;">
@@ -236,8 +252,8 @@
                                 <input hidden type="hidden" name="FK_id_patient" value="{{ $patient_id }}"/>
                                 <input hidden type="hidden" name="visits" value="{{ $checkValue  }}"/>
 
-                                <div class="row" style="margin-top:30px;">
-                                    <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6" style="margin-top: -85px;">
                                         <div class="form-group">
                                             <label></label>
                                             <input type="number" class="form-control" id="copyteeth" required name="teeth_number"style="visibility: hidden">
@@ -343,7 +359,7 @@
 
                                           </div>
                                       </div>
-
+                                     </div>
                                   </div>
                               </div>
                           </div>
@@ -372,13 +388,15 @@
 //            alert('const = '+e.target.id);
         }
     </script>
-
+    {{-- Copying input from tooth number --}}
     <script type="text/javascript">
         function copyvalue() {
         var teeth=document.getElementById('teeth').value;
         document.getElementById('copyteeth').value=teeth;
         }
         </script>
+
+        {{-- disabling send to xray button --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
        $(document).ready(function () {
@@ -391,6 +409,13 @@
               }
            });
        });
+    </script>
+    <script>
+        $(document).ready(function () {
+           $('#id').click(function () {
+               $('#but').prop('disabled',true);
+           });
+        });
     </script>
 
 

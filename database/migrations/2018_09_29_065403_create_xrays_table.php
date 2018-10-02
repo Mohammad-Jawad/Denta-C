@@ -19,7 +19,7 @@ class CreateXraysTable extends Migration
             $table->string('patient_id');
             $table->string('patient_name');
             $table->string('doctor_name');
-            $table->boolean('xray_status');
+            $table->string('xray_status');
             $table->timestamps();
         });
     }

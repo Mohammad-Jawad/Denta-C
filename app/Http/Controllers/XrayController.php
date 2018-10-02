@@ -43,10 +43,10 @@ class XrayController extends Controller
         $rey->patient_id=$request->patient_id;
         $rey->patient_name=$request->patient_name;
         $rey->doctor_name=$request->doctor_name;
-        $rey->xray_status=$request->xray_status;
+        $rey->xray_status=$request->input('xray_status');
         $rey->save();
         return redirect('/xray');
-//        return $request;
+    //    return $request;
 
     }
 
@@ -83,15 +83,15 @@ class XrayController extends Controller
      */
     public function update(Request $request, Xray $xray)
     {
-        $rey=Xray::find($xray);
-        $rey->tooth_number=$request->tooth_number;
-        $rey->patient_id=$request->patient_id;
-        $rey->patient_name=$request->patient_name;
-        $rey->doctor_name=$request->doctor_name;
-        $rey->xray_status=$request->xray_status;
-        $rey->save();
+        $Edt=Xray::find($xray)->first();
+        $Edt->tooth_number=$request->tooth_number;
+        $Edt->patient_id=$request->patient_id;
+        $Edt->patient_name=$request->patient_name;
+        $Edt->doctor_name=$request->doctor_name;
+        $Edt->xray_status=$request->xray_status;
+        $Edt->save();
         return redirect('/xray');
-//        return $rey;
+    //    return $request;
     }
 
     /**

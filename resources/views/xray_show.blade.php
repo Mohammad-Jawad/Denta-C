@@ -91,7 +91,8 @@
             </div>
 
             <div class="ibox-content">
-                <form method="post" action="/xray">
+                @foreach($spats as $spat)
+            <form method="post" action="/xray/{{ $spat->id }}">
                     {{csrf_field()}}
                     {{method_field('PUT')}}
                 <div class="row" style="margin-bottom: -30px;">
@@ -100,20 +101,20 @@
                             <div class="profile-info">
                                 <div class="">
                                     <div>
-                                        @foreach($spats as $spat)
-                                        <h2 class="no-margins font-b"><label><b>Patient Name:&nbsp;</b></label>
-                                            <input type="text" name="patient_name" value="<b>{{$spat->patient_name}}<b>" class="form-control" readonly>
+                                        
+                                        <h2 class="no-margins font-b"><label>Patient Name:&nbsp;</label>
+                                            <h3><input type="text" name="patient_name" value="{{$spat->patient_name}}" class="form-control" readonly></h3>
                                         </h2>
-                                        <h2 class="no-margins font-b"><label><b>Patient ID:&nbsp;</b></label>
-                                            <input type="text" name="patient_id" value="<b>{{$spat->patient_id}}<b>" class="form-control" readonly>
+                                        <h2 class="no-margins font-b"><label>Patient ID:&nbsp;</label>
+                                            <input type="text" name="patient_id" value="{{$spat->patient_id}}" class="form-control" readonly>
                                         </h2>
-                                        @endforeach
+                                        
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-5">
-                            <table class="table small m-b-xs">
+                            <table class="table small m-b-xs table-striped table-hover" >
                                 <tbody>
                                 <tr>
                                     @foreach($patients as $patient)
@@ -128,15 +129,30 @@
                                 @foreach($spats as $spat)
                                 <tr>
                                     <td>
-                                        <span class="font-m">Doctor:&nbsp;<i class="fa fa-user-md"></i><input type="text" name="doctor_name" value="<b>{{$spat->doctor_name}}</b>" readonly> </span>
+                                        <span class="font-m">Doctor:&nbsp; <i class="fa fa-user-md"></i><input type="text" name="doctor_name" class="form-control" value="{{$spat->doctor_name}}" readonly> </span>
+                                    </td>
+                                    <td>
+                                        <span class="font-m">X-Ray ID:&nbsp;<input type="text" name="id" class="form-control" value="{{$spat->id}}" readonly> </span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <span class="font-m">Date Reg:&nbsp;<i class="fa fa-calendar"></i><b>&nbsp;{{$spat->created_at}}</b></span>
+                                       <span class="font-m">Date Reg:&nbsp;<i class="fa fa-calendar"></i></span>
                                     </td>
                                     <td>
-                                        <span class="font-m text-info">X-Ray Status: <input type="number" id="status" name="xray_status" value="<b>{{$spat->xray_status}}</b>" readonly>&nbsp;</span>
+                                        <h3><b>&nbsp;{{$spat->created_at}}</b></h3>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                     <h3>X-Ray Status:&nbsp;</h3></td>
+                                    <td>
+                                     <input type="text" id="status" style="font-size:15px;" name="xray_status" class="form-control" value="{{$spat->xray_status}}" readonly>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="text-align:right">
+                                           <button type="button" class="btn btn-primary btn-md" id="change">Change xray-ray Status</button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -153,7 +169,7 @@
                             @foreach($spats as $spat)
                             <tr>
                                 <td><strong>Tooth Number :</strong></td>
-                                <td><input type="text" name="tooth_number" value="{{$spat->tooth_number}}" readonly></td>
+                                <td><input type="text" name="tooth_number" class="form-control" value="{{$spat->tooth_number}}" readonly></td>
                             </tr>
                             @endforeach
                         </table>
@@ -164,11 +180,12 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-3" style="margin-top:30px;">
-                        <button class="btn btn-primary xray" id="update" onclick="changeState()" type="submit" value="Done">Done<i class="fa fa-save"></i></button>&nbsp;&nbsp;
-                        <a class="btn btn-white" href="/xray/{$spat->id}/edit">Cancel</a>
+                    <button class="btn btn-primary xray" type="submit" value="Done">Done &nbsp;<i class="fa fa-save"></i></button>&nbsp;&nbsp;
+                        <a class="btn btn-white" href="/xray">Cancel</a>
                     </div>
                 </div>
                 </form>
+                @endforeach
             </div>
 
         </div>
@@ -178,11 +195,13 @@
 
 @section('script')
     <script src="{{ asset('js/tooths.js') }}" type="javascript"></script>
-
-    <script type="text/javascript">
-        function changeState(){
-            document.getElementById('status').value=true;
-        }
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#change').click(function(){
+                $('#status').attr('value','yes');
+            });
+        });
     </script>
 
 

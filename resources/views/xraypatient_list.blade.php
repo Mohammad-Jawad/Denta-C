@@ -127,7 +127,7 @@
                                                             @if(count($patient)>0)
                                                                 @foreach($patient as $pat)
                                                                     <tbody>
-                                                                    @if($pat->xray_status==true)
+                                                                    @if($pat->xray_status=='not')
                                                                         <tr>
                                                                             <td>{{$pat->id}}</td>
                                                                             <td>{{$pat->tooth_number}}</td>
@@ -135,7 +135,7 @@
                                                                             <td>{{$pat->patient_name}}</td>
                                                                             <td>{{$pat->doctor_name}}</td>
                                                                             <td>{{$pat->xray_status}}</td>
-                                                                            <td><a class="btn btn-xs btn-info" href="/xray/{{$pat->id}}">Details &nbsp;<i class="fa fa-file-o"></i></a></td></td>
+                                                                            <td><a class="btn btn-xs btn-info" href="/xray/{{$pat->id}}/edit">Details &nbsp;<i class="fa fa-file-o"></i></a></td></td>
                                                                         </tr>
                                                                     @endif
                                                                     </tbody>
@@ -176,7 +176,7 @@
                                                             @if(count($patient)>0)
                                                                 @foreach($patient as $pat)
                                                                     <tbody>
-                                                                    @if($pat->xray_status==false)
+                                                                    @if($pat->xray_status=='yes')
                                                                         <tr>
                                                                             <td>{{$pat->id}}</td>
                                                                             <td>{{$pat->tooth_number}}</td>
