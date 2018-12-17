@@ -41,7 +41,7 @@ Route::middleware('auth','admin')->group(function (){
 
 // Route Group & Middleware for doctor
 Route::middleware('auth','doctor')->group(function () {
-
+    Route::resource('/treatment','TeethController');
     Route::resource('/dental-defect-list','DentalDefectListController');
 
     Route::resource('/treatment-list','TreatmentListController');
@@ -57,6 +57,7 @@ Route::middleware('auth','doctor')->group(function () {
     Route::get('/operation/create/{id}', 'TreatmentController@create');
 
     Route::get('/operation/{id}/edit/{patient_id}', 'TreatmentController@edit_treatment');
+    Route::get('/operation/take_xray_again/{id}', 'TreatmentController@take_xray_again');
 
     Route::resource('/medicine','MedicineController');
     Route::get('/medicine2','MedicineController@show');
@@ -142,14 +143,20 @@ Route::middleware('auth','reception')->group(function () {
     Route::get('/pdf', 'PdfGenerator@PDF');
 //doctor salary
     Route::get('/doctors2', 'DoctorController@show');
-    Route::patch('/doctors3/{id}', 'DoctorController@PayAdvance');
+//    Route::patch('/doctors3/{id}', 'DoctorController@PayAdvance');
 
 //    Patient Deletion
     Route::get('/patient/{id}/delete', 'PatientController@destroy');
 // Doctor Registrationexp
-    Route::resource('doctors', 'DoctorController');
+    Route::resource('/doctors', 'DoctorController');
+    Route::resource('/dr_salary','DSalaryController');
+    Route::post('/dr_salary1','DSalaryController@show');
+    Route::post('/dr_salary2','DSalaryController@store');
+    Route::post('/dr_salary3','DSalaryController@PaySalary3');
 
     Route::resource('/expenditure', 'ExpenseController');
+    // search expenditure
+    Route::post('/expenditure/search', 'ExpenseController@search');
 
     Route::get('expenditure2/{id}', 'ExpenseController@destroy');
 
@@ -166,6 +173,8 @@ Route::middleware('auth','reception')->group(function () {
     Route::resource('other-income', 'OincomController');
 
     Route::resource('income', 'IncomeController');
+
+    Route::post('/income/search', 'IncomeController@search');
 
     Route::get('income2', "incomeController@show");
 
@@ -203,7 +212,17 @@ Route::middleware('auth','reception')->group(function () {
     //financial report profit range day
     Route::get('finance_report_profit2','FinanceReportProfitController@rangeDay');
 
+    /* Financial report Loan Route */
+    Route::get('finance_report_loan','FinanceReportLoan@report');
+
+    Route::get('finance_report_loan_all','FinanceReportLoan@all_loan');
+    Route::post('finance_report_loan/single/supplier','FinanceReportLoan@single_supplier');
+
+
     Route::resource('xrey_income', 'xrayincomeController');
+
+    Route::get('/log_activity', 'HomeController@log_activity');
+    Route::post('/log_activity/search', 'HomeController@search_log_activity');
 
     Route::get('xrey_income2', 'xrayincomeController@showComplete');
 
@@ -237,6 +256,15 @@ Route::middleware('auth','reception')->group(function () {
     //financial report profit range day
     Route::get('finance_report_profit2','FinanceReportProfitController@rangeDay');
 
+    Route::get('/patient-deleted','DeletedRecordsController@patient');
+    Route::get('/doctor-deleted','DeletedRecordsController@doctor');
+    Route::get('/expense-deleted','DeletedRecordsController@expense');
+    Route::get('/user-deleted','DeletedRecordsController@user');
+    Route::get('/patient-deleted/{id}','DeletedRecordsController@restorePatient');
+    Route::get('/doctor-deleted/{id}','DeletedRecordsController@restoreDoctor');
+    Route::get('/expense-deleted/{id}','DeletedRecordsController@restoreExpense');
+    Route::get('/user-deleted/{id}','DeletedRecordsController@restoreUser');
+
     Route::resource('xrey_income', 'xrayincomeController');
 
     Route::get('xrey_income2', 'xrayincomeController@showComplete');
@@ -258,9 +286,9 @@ Route::middleware('auth','reception')->group(function () {
        return view('help');
     });
 
-    Route::get('/doctors/doctor_edit/{id}','DoctorController@doctor_edit');
+    Route::get('/doctors/{id}','DoctorController@edit');
 
-    Route::post('/doctors/update/{id}','DoctorController@update_doctor');
+    Route::post('/doctors7/{id}','DoctorController@update');
 
 //    Traders Route
     Route::resource('/trader','TraderController');
@@ -307,6 +335,7 @@ Route::middleware('auth','reception')->group(function () {
     Route::get('/pay_salary','PaySalaryController@index');
 
     Route::post('/pay_salary2','PaySalaryController@showPayment');
+//    Route::post('/pay_salary2','PaySalaryController@showPayment');
     Route::post('/pay_salary3','PaySalaryController@PaySalary3');
 
 

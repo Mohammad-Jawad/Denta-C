@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Doctor extends Model
+class Doctor extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     use SoftDeletes;
 
     protected $fillable=['id','first_name','last_name','father_name','start_work_time','end_work_time','phone','dept_id','gender','salary_type','salary_amount'];
@@ -36,13 +38,8 @@ class Doctor extends Model
         return $this->hasMany(Xray::class);
     }
 
-    public function treatment(){
-        $first = Carbon::now()->startOfMonth()->toDateString();
-        if ($this->to != null){
-            return $this->hasManyThrough(Treatment::class ,Patient::class)->whereDate('treatments.created_at','>',$this->to);
-        } else{
-            return $this->hasManyThrough(Treatment::class ,Patient::class)->whereDate('treatments.created_at','>=',$first);
-        }
+    public function dsalary(){
+        return $this->hasMany(DSalary::class,'doc_id','id');
     }
 
 

@@ -15,14 +15,13 @@ class CreateTeethsTable extends Migration
     {
         Schema::create('teeths', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('tooth_number');
+            $table->string('tooth_number')->nullable();
+            $table->string('treatment')->nullable();
+            $table->string('dentaldefect')->nullable();
+            $table->string('shade')->nullable();
+            $table->string('type_cover')->nullable();
+            $table->integer('patient_id')->nullable();
             $table->unsignedInteger('treatment_id')->nullable();
-
-            $table->foreign('treatment_id')
-                ->references('id')->on('treatments')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
-
             $table->softDeletes();
             $table->timestamps();
         });

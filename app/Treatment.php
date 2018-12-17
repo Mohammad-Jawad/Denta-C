@@ -4,9 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Treatment extends Model
+class Treatment extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     use SoftDeletes;
 
     public $timestamps= false;
@@ -28,9 +30,6 @@ class Treatment extends Model
         return $this->hasOne(Xray::class);
     }
 
-    public function teeth()
-    {
-        return $this->hasMany(Teeth::class,'treatment_id','id');
-    }
+
 
 }

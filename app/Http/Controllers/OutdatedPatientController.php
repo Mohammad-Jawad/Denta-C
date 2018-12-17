@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\OutdatedPatient;
 use App\OutdatedReceive;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -73,6 +74,7 @@ class OutdatedPatientController extends Controller
         $receive = new OutdatedReceive();
         $receive->paid = $receive_fee;
         $receive->outdated_id = $id;
+        $receive->created_at = Carbon::now();
         $receive->save();
         return redirect()->back();
     }
@@ -127,12 +129,15 @@ class OutdatedPatientController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\OutdatedPatient  $outdatedPatient
+     * @param $id
      * @return \Illuminate\Http\Response
+     * @internal param OutdatedPatient $outdatedPatient
      */
     public function destroy($id)
     {
         $patient = OutdatedPatient::find($id);
+        $recieveOutdatedPatient = OutdatedReceive::where('outdated_id',$id)->get(['id']);
+        OutdatedReceive::destroy($recieveOutdatedPatient->toArray());
         $patient->delete();
         return redirect()->back();
     }

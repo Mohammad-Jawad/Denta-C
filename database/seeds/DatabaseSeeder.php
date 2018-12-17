@@ -20,9 +20,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-
-//        if(UserTableSeeder::count() == 0)$this->call(UserTableSeeder::class );
-//        if(\App\Doctor::count() == 0)$this->call(DoctorSeeder::class );
+//        if(Underscore\.::count() == 0)$this->call(UserTableSeeder::class );
+        if(\App\Doctor::count() == 0)$this->call(DoctorSeeder::class );
         if(TreatmentList::count() == 0)$this->call(TreatmentListTableSeeder::class );
         if(\App\DentalDefectList::count() == 0)$this->call(DentalDefectListTableSeeder::class );
         if(\App\DoctorDepartment::count() == 0)$this->call(DoctorDepartmentTableSeeder::class );
@@ -43,8 +42,8 @@ class DatabaseSeeder extends Seeder
 //        if(Treatment::count() == 0)$this->call(TreatmentTableSeeder::class );
 ////        if(Permission::count() == 0)$this->call(PermissionTableSeeder::class );
 //        if(Expense::count() == 0)$this->call(ExpenseTableSeeder::class );
-////        if(Role::count() == 0)$this->call(RoleTableSeeder::class );
-////        $this->call(UserRoleTableSeeder::class);
+//        if(Role::count() == 0)$this->call(RoleTableSeeder::class );
+//        $this->call(UserRoleTableSeeder::class);
     }
 }
 
@@ -190,6 +189,7 @@ class TreatmentListTableSeeder extends Seeder
         DB::table('treatment_lists')->insert([
             'treatment' => 'PF Parmanent Filling',
             'estimated_fee' => 15000,
+            'color' => 15000,
         ]);
 
         DB::table('treatment_lists')->insert([
